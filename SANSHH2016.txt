@@ -1,0 +1,87 @@
+This was the first Holiday Hack I participated in and I just want to thank yall for the experience. It was incredible.
+
+-Joel Henning
+
+Question 1:
+After copying all the tweets to a text file then using regex to get ride of everything except the tweets reveals the ASCII art words of BUGBOUNTY.
+
+
+Question 2:
+The zip file which is found at the url http://northpolewonderland.com/SantaGram_v4.2.zip which is a combination of the url on the notebook as well as the attachment in the urlbar of the laptop contains the APK file SantaGram_4.2.apk
+
+
+Question 3:
+The username and the password were hardcoded into the SplashScreen.class file in com.northpolewonderland.santagram.
+To get to the .class file I first ran dex2jar on the apk file to convert it into a jar file.
+Then I used the tool jd-gui to look at the .class files in SantaGram.jar
+After sifting through the files I found the following:
+The Username is "guest"
+The password is "busyreindeer78"
+
+
+Question 4:
+First I unpacked the APK file using the the apktool.
+The audio file was located in the raw folder of the unpacked APK.
+The name of the audio file is discombobulatedaudio1.mp3
+
+
+Question 5:
+The password for the "cranpi" is yummycookie. 
+To get the password I extracted the shadow file from the cranbian.img
+I then ran the shadow file through John the Ripper with the wordlist being rockyou.txt
+
+
+Question 6:
+*NOTE: Terminals are listed in the order in which I solved them*
+
+	Wumpus Terminal (Santa's workshop):
+	The process for finding the Wumpus is as followed.
+	I ran through the cave once to get a feel for how the game was played.
+	On the second run I try a graph of the rooms and all of their connecting tunnels.
+	After mapping what rooms were adjacent to the Wumpus (smell) I could fire an arrow into the room and kill it.
+
+	The corresponding password is:
+	WUMPUS IS MISUNDERSTOOD
+
+	Door to Santa's Office (Santa's workshop):
+	Based off of the instruction I guessed that it may be a hidden directory. 
+	I ran the following command:
+	$find .
+
+	What was returned was the tree structure of all of the directories that start with .
+
+	The one that stood out was:
+	/./.doormat/. / /\/\\/Don't Look Here!/You are persistent, aren't you?/'/key_for_the_door.txt
+
+	I then ran the command cat with all of the special characters listed above escaped.
+	The password that I got back was open_sesame
+
+
+	War Games Terminal (Santa's Office):
+	The prompt on the terminal was from War Games (movie).
+	I responded exactly like it was in the movie.
+
+	The computer gave me the password: LOOK AT THE PRETTY LIGHTS
+
+
+	Elf House #2 Terminal:
+	Running the command ls -la you see that the file that I need to access is owned by itchy.
+	To see what commands I can run as itchy without needing their password I ran the command sudo -l
+
+	It told me I could use strings and tcpdump as itchy.
+	I ran strings on the out.pcap and discovered that the first half of the password is santasli.
+	Based off of the theme of the game I guessed that the passphrase must be santaslittlehelper so the second half of the password is ttlehelper.
+
+
+	Train Terminal:
+	HELP uses less to open the file /home/conductor/TrainHelper.txt
+	Less allows the user to execute commands using !{shell-command}
+
+	I ran the command !ls which listed the files ActivateTrain, TrainHelper.txt and Train_Console in /home/conductor/
+	After searching through Train_Console using the  followuing command:
+	!cat Train_Console
+
+	I discovered the password 24fb3e89ce2aa0ea422c3d511d40dd84 hardcoded into the code.
+	This password is used to START the train.
+	Release the break with BRAKEOFF and then START the train.
+	I entered the password when prompted and then blasted off to the future.
